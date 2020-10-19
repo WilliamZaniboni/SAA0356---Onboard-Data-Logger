@@ -9,13 +9,12 @@ Trabalho da disciplina SAA0356 realizada durante o segundo semestre de 2020.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Pre-requisitos
+### Pré-requisitos
 
 What things you need to install the software and how to install them
 
-```
-Give examples
-```
+<img src="./img/hardware_diagram.png" align="center"
+     alt="Logo EESC" width="400" height="400">
 
 ### Installing
 

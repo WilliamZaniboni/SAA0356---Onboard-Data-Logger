@@ -5,11 +5,11 @@
 
 Trabalho da disciplina SAA0356 realizada durante o segundo semestre de 2020.
 
-## Getting Started
+## Vamos lá!
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+### Pre-requisitos
 
 What things you need to install the software and how to install them
 

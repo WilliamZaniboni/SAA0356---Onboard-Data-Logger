@@ -73,9 +73,13 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
-## Autores
+## Alunos
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **João Matheus Siqueira Souza** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Marina Gabriela Alves** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Vinicius Aquilante Policarpo** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **William Zaniboni Silva** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 

@@ -75,10 +75,10 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Alunos
 
-* **João Matheus Siqueira Souza** - *Initial work* - [GitHub](https://github.com/jmssouza)
-* **Marina Gabriela Alves** - *Initial work* - [GitHub](https://github.com/MarinaGabrielaAlves)
-* **Vinicius Aquilante Policarpo** - *Initial work* - [GitHub](https://github.com/viniciusapolicarpo)
-* **William Zaniboni Silva** - *Initial work* - [GitHub](https://github.com/WilliamZaniboni)
+* **João Matheus Siqueira Souza** - *EESC/USP* - [GitHub](https://github.com/jmssouza)
+* **Marina Gabriela Alves** - *EESC/USP* - [GitHub](https://github.com/MarinaGabrielaAlves)
+* **Vinicius Aquilante Policarpo** - *EESC/USP* - [GitHub](https://github.com/viniciusapolicarpo)
+* **William Zaniboni Silva** - *EESC/USP* - [GitHub](https://github.com/WilliamZaniboni)
 
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.

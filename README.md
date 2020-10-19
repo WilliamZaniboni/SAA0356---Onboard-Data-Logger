@@ -1,5 +1,8 @@
 # Onboard Data Logger
 
+<img src="./img/logo_eesc.png" align="right"
+     alt="Logo EESC" width="200" height="175">
+
 Trabalho da disciplina SAA0356 realizada durante o segundo semestre de 2020.
 
 ## Getting Started

@@ -7,7 +7,7 @@ Trabalho da disciplina SAA0356 realizada durante o segundo semestre de 2020.
 
 ## Vamos lá!
 
-Apresenta-se, como proposta de aplicação de sistemas embarcados, o uso de um IMU embarcado em uma aeronave, cuja atitude medida é utilizada para visualização dos ângulos de rolagem, arfagem e guinada em função do tempo. Como exemplo, imagina-se a utilização deste sistema em aeronaves em shows aéreos da Academia da Força Aérea, de forma que a visualização de seus ângulos de rotação, sob a forma de gráficos e figura 3D, colabore na visualização da complexidade das manobras e acobracias. 
+Apresenta-se, como proposta de aplicação de sistemas embarcados, o uso de um IMU embarcado em uma aeronave, cuja atitude medida é utilizada para visualização dos ângulos de rolagem, arfagem e guinada em função do tempo. Como exemplo, imagina-se a utilização deste sistema em aeronaves em shows aéreos da Academia da Força Aérea, de forma que a visualização de seus ângulos de rotação, sob a forma de gráficos e figura 3D, colabore na visualização da complexidade das manobras e acrobacias. 
 
 ## Pré-requisitos
 
@@ -26,7 +26,7 @@ SPI (Serial Peripheral Interface) é um protocolo de integração que possibilit
 Quando em modo master, o microcontrolador gera sinal de clock e, os que estão na posição de slaves, recebem o este sinal.
 
 3. Protocolo de comunicação
-Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Control Protocol), que garante comunicações a partir das quais diferentes aplicações podem trocar informações,e o qual utiliza IP (Internet Protocol). Nesse contexto, a comunicação entre a placa e a máquina host é feita por rede Wi-fi, e na máquina host é feita a integração entre os dados e a interface gráfica.
+Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Control Protocol), que garante comunicações a partir das quais diferentes aplicações podem trocar informações,e o qual utiliza IP (Internet Protocol). Nesse contexto, a comunicação entre a placa e a máquina host é feita por rede Wi-fi, via socket, e na máquina host é feita a integração entre os dados e a interface gráfica.
 
 4. A comunicação é feita via sockets, que transmite dados na forma peer-to-peer, garantindo que o cliente envie informações para o servidor, e obtenha respostas deste.
 
@@ -104,4 +104,5 @@ gcc socket_server.c -o socket_server
 
 ## Acknowledgments
 
+Este trabalho compõe os critérios de avaliação da matéria Sistemas Embarcados, e só foi possível a partir dos conceitos ensinados nas aulas do Professor Doutor Glauco Augusto de Paula Caurin e de sua equipe.
 

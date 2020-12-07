@@ -76,7 +76,7 @@ gcc socket_server.c -o socket_server
 > [pyvista](https://docs.pyvista.org/) <br/>
 > [numpy](https://numpy.org/install/) <br/>
 > [vpython](https://www.glowscript.org/docs/VPythonDocs/index.html)
-
+> [numpy-stl](https://pypi.org/project/numpy-stl/)
 
 ## Funcionamento
 

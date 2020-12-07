@@ -84,10 +84,8 @@ gcc socket_server.c -o socket_server
 * **Vinicius Aquilante Policarpo** - *EESC/USP* - [GitHub](https://github.com/viniciusapolicarpo)
 * **William Zaniboni Silva** - *EESC/USP* - [GitHub](https://github.com/WilliamZaniboni)
 
-## License
 
-
-## Acknowledgments
+## Agradecimentos
 
 Este trabalho compõe os critérios de avaliação da matéria Sistemas Embarcados, e só foi possível a partir dos conceitos ensinados nas aulas do Professor Doutor Glauco Augusto de Paula Caurin e de sua equipe.
 

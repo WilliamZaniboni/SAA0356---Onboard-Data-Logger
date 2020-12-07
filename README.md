@@ -71,25 +71,10 @@ gcc socket_server.c -o socket_server
 ./socket_server
 ```
 
-## Running the tests
+### Interface gráfica
 
 
-### Break down into end to end tests
-
-
-
-### And coding style tests
-
-
-## Deployment
-
-
-## Built With
-
-## Contributing
-
-
-## Versioning
+## Funcionamento
 
 
 ## Alunos

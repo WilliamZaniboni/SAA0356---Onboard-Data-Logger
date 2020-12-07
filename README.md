@@ -71,7 +71,7 @@ gcc socket_server.c -o socket_server
 ./socket_server
 ```
 
-### Interface gráfica (instale antes de rodar)
+### Interface gráfica em Python (instale antes de rodar)
 
 > [pyvista](https://docs.pyvista.org/) <br/>
 > [numpy](https://numpy.org/install/) <br/>

@@ -43,7 +43,7 @@ Comandos no terminal:
 ##### 1.1. Comunicação entre host e placa: 
 
 ```sh
-   sudo sftp debian@(IP da comunicação)
+sudo sftp debian@(IP da comunicação)
 ```
 
 ##### 1.2. Localiza o diretório do arquivo server

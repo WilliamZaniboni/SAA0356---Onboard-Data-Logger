@@ -9,10 +9,12 @@ Trabalho da disciplina SAA0356 realizada durante o segundo semestre de 2020.
 
 Apresenta-se, como proposta de aplicação de sistemas embarcados, o uso de um IMU embarcado em uma aeronave, cuja atitude medida é utilizada para visualização dos ângulos de rolagem, arfagem e guinada em função do tempo. Como exemplo, imagina-se a utilização deste sistema em aeronaves em shows aéreos da Academia da Força Aérea, de forma que a visualização de seus ângulos de rotação, sob a forma de gráficos e figura 3D, colabore na visualização da complexidade das manobras e acobracias. 
 
-### Pré-requisitos
+## Pré-requisitos
 
-<img src="./img/hardware_diagram.png" align="center"
-     alt="Logo EESC" width="400" height="400">
+<p align="center">
+  <img src="./img/hardware_diagram.png" alt="Logo EESC" width="400">
+</p>
+
 
 1. Escolha do IMU: 
 O IMU é um sensor que, geralmente, combina as funcionalidades de acelerômetros, giroscópios e magnômetro, e permite medir a atitude de um objeto. 
@@ -36,36 +38,38 @@ Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Contro
 
 Comandos no terminal:
 
-1. Cliente
+#### 1. Cliente
 
-1.1. Comunicação entre host e placa: 
+##### 1.1. Comunicação entre host e placa: 
 
-sudo sftp debian@(IP da comunicação)
+```sh
+   sudo sftp debian@(IP da comunicação)
+```
 
-1.2. Localiza o diretório do arquivo server
+##### 1.2. Localiza o diretório do arquivo server
 
-1.3. Cópia do código do server para a placa:
-
+##### 1.3. Cópia do código do server para a placa:
+```sh
 put socket_client 
-
-1.4. Estando o arquivo na placa, faz-se sua compilação:
-
+```
+##### 1.4. Estando o arquivo na placa, faz-se sua compilação:
+```sh
 gcc socket_client.c -o socket_client
-
-1.5. Execução do código na placa:
-
+```
+##### 1.5. Execução do código na placa:
+```sh
 ./socket_client
+```
+#### 2. Servidor
 
-2. Servidor
-
-2.1 Na máquina host, compila-se o arquivo do código:
-
+##### 2.1 Na máquina host, compila-se o arquivo do código:
+```sh
 gcc socket_server.c -o socket_server
-
-2.2. Executa-se o cófigo do servidor no host:
-
+```
+##### 2.2. Executa-se o cófigo do servidor no host:
+```sh
 ./socket_server
-
+```
 
 ## Running the tests
 

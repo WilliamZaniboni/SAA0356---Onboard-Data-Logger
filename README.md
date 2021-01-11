@@ -70,8 +70,12 @@ gcc socket_server.c -o socket_server
 ```sh
 ./socket_server
 ```
+## Interface gráfica
 
-### Interface gráfica em Python (instale antes de rodar)
+TO DO
+
+
+### Bibliotecas necesárias em Python (instale antes de rodar)
 
 > [pyvista](https://docs.pyvista.org/) <br/>
 > [numpy](https://numpy.org/install/) <br/>
@@ -80,6 +84,7 @@ gcc socket_server.c -o socket_server
 
 ## Funcionamento
 
+TO DO
 
 ## Alunos
 

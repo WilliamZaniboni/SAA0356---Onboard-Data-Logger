@@ -75,7 +75,7 @@ gcc socket_server.c -o socket_server
 TO DO
 
 
-### Bibliotecas necesárias em Python (instale antes de rodar)
+### Bibliotecas necessárias em Python (instale antes de rodar)
 
 > [pyvista](https://docs.pyvista.org/) <br/>
 > [numpy](https://numpy.org/install/) <br/>

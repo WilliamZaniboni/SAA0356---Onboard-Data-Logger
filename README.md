@@ -34,9 +34,13 @@ Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Contro
 
 
 	Para que pudéssemos realizar o objetivo de estabelecer uma comunicação entre placa e computador, a fim de receber os dados da placa e conseguirmos, no computador, visualizar a atitude a qual está submetida a placa, por meio de uma interface gráfica, era de extrema importância conseguirmos entender a comunicação via socket.
+	
 	Neste trabalho, pudemos aprender como isso é feito, e uma das dificuldades foi entender tudo o que é preciso, nas implementações, para que cada parte da conexão exerça sua função de forma adequada. 
+	
 	Ao utilizarmos o protocolo de comunicação TCP, que funciona como se, de forma abstrata, houvesse uma conexão entre computador e placa, a comunicação é feita via socket. Nesse contexto, uma vez que temos, nesse tipo de comunicação, o servidor e o cliente, é necessário implementar o código para ambas as partes. 
+	
 	Para o servidor, é necessário que esse seja capaz de deixar aberta uma “porta”, de forma que esteja “aberto” à comunicação com o cliente. Tendo feito isso, é necessário que o servidor aguarde um cliente se conectar e, assim que isso é feito, esteja apto a receber dados do cliente, podendo também dar-lhe respostas. 
+	
 	O cliente, por sua vez, deve ser capaz de estabelecer a conexão com o servidor, via socket, a partir do IP do servidor e do número da porta a qual foi destinada para a conexão desejada. Ao se conectar, o cliente deve ser capaz de enviar informações e receber as respostas do servidor. 
 	 
 

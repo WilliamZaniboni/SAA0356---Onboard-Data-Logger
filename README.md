@@ -88,6 +88,8 @@ A interface gráfica foi implementada em liguagem Python e permite acompanhar em
 
 ### CAD utilizado para a visualização
 
+O modelo de avião utilizado na interface foi retirado e adapatado de [Free3D](https://free3d.com/3d-model/airplane-v2--549103.html).
+
 <p align="center">
  <img src="./img/cad - imagem.png" 
      alt="CAD" width="256" height="130">

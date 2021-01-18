@@ -84,11 +84,14 @@ gcc socket_server.c -o socket_server
 ```
 ## Interface gráfica
 
-TO DO
+A interface gráfica foi implementada em liguagem Python e permite acompanhar em tempo real a orientação da aeronave e gráficos de row, pitch e yaw. A comunicação entre a placa e a interface ocorre por meio de uma conexão cliente/servidor utilizando sockets e comunicação TCP/IP.  No caso, a máquina que executa a interface é o servidor e a placa é o cliente. Para que a comunicação funcione é necessário que a interface e a placa estejam na mesma rede local, caso estejam em redes diferentes, torna-se necessário realizar um redirecionamento de portas no roteador (isso ocorre devido a questões de segurança, é necessário configurar o roteador  da rede onde a interface está rodando para permitir que o  IP da placa acesse a porta previamente determinada na aplicação).
 
+### CAD utilizado para a visualização
 
-<img src="./img/cad - imagem.png" align="center"
+<p align="center">
+ <img src="./img/cad - imagem.png" 
      alt="CAD" width="256" height="130">
+</p>
 
 
 ### Bibliotecas necessárias em Python (instale antes de rodar)

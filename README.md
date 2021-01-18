@@ -87,6 +87,9 @@ gcc socket_server.c -o socket_server
 TO DO
 
 
+<img src="./img/cad - imagem.png" align="right"
+     alt="CAD" width="200" height="175">
+
 
 ### Bibliotecas necessárias em Python (instale antes de rodar)
 

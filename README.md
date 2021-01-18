@@ -32,7 +32,7 @@ Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Contro
 
 5. Utiliza-se 10 ms como tempo de amostragem para o sistema de captação de atitude.
 
-### Socket
+## Socket
 
 	Para que pudéssemos realizar o objetivo de estabelecer uma comunicação entre placa e computador, a fim de receber os dados da placa e conseguirmos, no computador, visualizar a atitude a qual está submetida a placa, por meio de uma interface gráfica, era de extrema importância conseguirmos entender a comunicação via socket.
 	Neste trabalho, pudemos aprender como isso é feito, e uma das dificuldades foi entender tudo o que é preciso, nas implementações, para que cada parte da conexão exerça sua função de forma adequada. 

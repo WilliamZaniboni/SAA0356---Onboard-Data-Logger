@@ -49,7 +49,7 @@ plotter.add_axes_at_origin(labels_off = True)
 # plotter.add_mesh(sgrid, scalars=Z.ravel())
 plotter.add_mesh(sgrid)
 # plotter.camera_position = cpos
-plotter.show(title='Airplane', window_size=[800, 600],
+plotter.show(title='Wave Example', window_size=[800, 600],
                  auto_close=False, interactive_update=True)
 
 

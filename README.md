@@ -103,6 +103,46 @@ O modelo de avião utilizado na interface foi retirado e adapatado de [Free3D](h
 > [vpython](https://www.glowscript.org/docs/VPythonDocs/index.html) <br/>
 > [numpy-stl](https://pypi.org/project/numpy-stl/)
 
+### Como rodar?
+
+
+	$ python Interface - Servidor.py
+
+### Explicação do Código
+
+Inicialmente é feita a importação das bibliotecas necessárias para a execução da interface:
+
+
+```python
+from vpython import *
+from time import *
+import numpy as np
+import math
+import socket
+import sys
+import time
+from stl import mesh 
+import pyvista
+```
+
+É realizado a inicialização dos gráficos e a importação do modelo CAD:
+
+```python
+s = 'Gráficos de <b><i>Row</i></b>, <b><i>Pitch</i></b>, <b><i>Yaw</i></b> em função do tempo.'
+
+grafico = graph(title=s, xtitle='Tempo (s)', ytitle='Ângulo', fast=False, width=800)
+funct1 = gcurve(color=color.blue, width=4, marker_color=color.orange, label='Row')
+funct2 = gcurve( color=color.green, label='Pitch')
+funct3 = gcurve(color=color.red, size=6, label='Yaw')
+
+your_mesh = mesh.Mesh.from_file('airplane.stl') 
+```
+
+
+
+
+
+
 ## Funcionamento
 
 TO DO

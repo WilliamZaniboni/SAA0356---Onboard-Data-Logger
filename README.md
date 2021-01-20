@@ -106,7 +106,7 @@ O modelo de avião utilizado na interface foi retirado e adapatado de [Free3D](h
 ### Como rodar?
 
 
-	$ python Interface - Servidor.py
+	$ python Interface-Servidor.py
 
 ### Explicação do Código
 

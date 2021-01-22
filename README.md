@@ -237,6 +237,8 @@ while True:
 
 TO DO
 
+![](./img/gif_motor.gif)
+
 ## Alunos
 
 * **João Matheus Siqueira Souza** - *EESC/USP* - [GitHub](https://github.com/jmssouza)

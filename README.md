@@ -1,13 +1,15 @@
-# Onboard Data Logger
+#### Onboard Data Logger
 
 <img src="./img/logo_eesc.png" align="right"
      alt="Logo EESC" width="200" height="175">
 
-Trabalho da disciplina SAA0356 realizada durante o segundo semestre de 2020.
+Trabalho da disciplina SAA0356, realizada durante o segundo semestre de 2020.
 
-## Vamos lá!
+#### Introdução e descrição inicial do sistema
 
-Apresenta-se, como proposta de aplicação de sistemas embarcados, o uso de um IMU embarcado em uma aeronave, cuja atitude medida é utilizada para visualização dos ângulos de rolagem, arfagem e guinada em função do tempo. Como exemplo, imagina-se a utilização deste sistema em aeronaves em shows aéreos da Academia da Força Aérea, de forma que a visualização de seus ângulos de rotação, sob a forma de gráficos e figura 3D, colabore na visualização da complexidade das manobras e acrobacias. 
+Dentro da aeronautica, a determinação e controle de atitude (Attitude Detemination and Control - ADC) de uma aeronave é de fundamental importância para a existência do voo. Com a crescente utilização de Veículos Aéreos Não Tripulados (VANT's) para as mais variadas aplicações, iniciou-se um processo de barateamento da tecnologia de ADC, visando disseminar ainda mais a utilização desses veículos e tornar possível aplicações que não tenham capacidade de prover grandes investimentos. 
+
+      Este trabalho consiste na implementação de um sistema de fusão sensorial simplificado, o qual permite aquisitar sinais de uma unidade de medida inercial (Inertial Measurement Unit - IMU), calcular a atitude desse sensor - módulo que estaria presente na aeronave - e enviar esses sinais para um computador de monitoramento (Ground Station). Para isso, será utilizada uma BeagleBone Blue como dispositivo embarcado, uma placa de desenvolvimento com inúmeros recursos voltados para robótica, inclusive uma IMU e um computador de propósito geral, que servirá como Ground Station. Na Ground Station, os dados de atitude serão visualizados através de um modelo 3D de uma aeronave, a qual seguirá a atitude da placa de desenvolvimento, assim como seria caso a placa estivesse presente em um VANT, além de exibir os gráficos de rolagem, arfagem e guinada em função do tempo. A parte embarcada do sistema é fundamental para o voo de qualquer aeronave autônoma, já a parte desenvolvida para a Ground Station, imagina-se como exemplo de utilização no desenvolvimento de aeronaves de pequeno porte, para monitorar as variáveis principais de atitude, conseguindo avaliar o funcionamento do modelo assim como o desempenho do projeto em manobras. 
 
 ## Pré-requisitos
 
@@ -45,8 +47,7 @@ Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Contro
 	 
 
 
-
-### Installing
+#### Instalação
 
 Comandos no terminal:
 

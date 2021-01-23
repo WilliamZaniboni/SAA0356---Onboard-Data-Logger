@@ -24,7 +24,7 @@ Este trabalho consiste na implementação de um sistema de fusão sensorial simp
 
 # Descrição do sistema
 
-De maneira geral, deseja-se sempre monitorar o estado de todas as variáveis possíveis de uma aeronave, principalmente em seu estado de desenvolvimento. Em uma aplicação real, o *link* entre a aeronave e a *Ground Station* não compõe a lista de funcionalidades mais relevantes para operação do sistema. No entanto, para fins didáticos e para que os conceitos desenvolvidos na disciplina pudessem ser aplicados sem complicações adicionais, propôs-se desenvolver algumas partes desse *link* apenas para as variáveis de atitude, de modo a iniciar uma arquitetura de funcionamento para esse sistema embarcado proposto e o desenvolvimento nessa área. Para estudantes futuros que tenham interesse em dar continuidade ao projeto, a seção *Trabalhos Futuros* mostra inúmeras possibilidades de integrações e desenvolvimentos futuros que trariam aplicabilidade real ao sistema.
+De maneira geral, deseja-se sempre monitorar o estado de todas as variáveis possíveis de uma aeronave, principalmente em seu estado de desenvolvimento. Em uma aplicação real, o *link* entre a aeronave e a *Ground Station* não compõe a lista de funcionalidades mais relevantes para operação do sistema. No entanto, para fins didáticos e para que os conceitos desenvolvidos na disciplina pudessem ser aplicados sem complicações adicionais, propôs-se desenvolver algumas partes desse *link* apenas para as variáveis de atitude, de modo a iniciar uma arquitetura de funcionamento para esse sistema embarcado proposto e o desenvolvimento nessa área. Para estudantes futuros que tenham interesse em dar continuidade ao projeto, inúmeras possibilidades de integrações e desenvolvimentos futuros poderiam trazer aplicabilidade real ao sistema.
 
 O *link* discutido envolve um conjunto de operações bastante complexas. Considerando o modelo *OSI*, tomando, por exemplo, a camada física da comunicação, inúmeros desafios já estariam presentes no desenvolvimento, como a determinação do nível de potência do sinal transmitido, tipo de modulação, antena e seus ganhos, apontamento e afins. O sistema proposta foca em desenvolver: 
 * A aquisição de dados, considerando acesso direto ao barramento no qual o sensor inercial está presente
@@ -48,51 +48,7 @@ A criação da *BBBlue* surgiu através do trabalho de *James Strawson*, que des
 
 Para validar a ideia do sistema, bastava conectar-se em uma rede, enviando pacotes de informação via *socket*. Assim, em uma aplicação real, precisa-se desenvolver as camadas atrás da aplicação, que lidam com o *socket* e com a parte física. A *BBBlue* oferece conectividade por *USB* e *Wifi*, desse modo, utilizaram-se essas formas de comunicação para validar o sistema. O *socket* foi desenvolvido utilizando o protocolo de comunicação *TCP - Transmission Control Protocol*, que garante a chegada dos pacotes de informação ao destino. Assim, o sistema desenvolvido fazia a aquisição dos sensores, transformava o sinal em valores de ângulo e depois colocava esses valores em um pacote. Esse pacote era transmitido considerando o *TCP/IP* para o servidor - rodando na máquina *host*. O pacote era então interpretado e a informação nele contida era plotada na interface criada.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Ao utilizarmos o protocolo de comunicação TCP, que funciona como se, de forma abstrata, houvesse uma conexão entre computador e placa, a comunicação é feita via socket. Nesse contexto, uma vez que temos, nesse tipo de comunicação, o servidor e o cliente, é necessário implementar o código para ambas as partes. 
-
-Para o servidor, é necessário que esse seja capaz de deixar aberta uma “porta”, de forma que esteja “aberto” à comunicação com o cliente. Tendo feito isso, é necessário que o servidor aguarde um cliente se conectar e, assim que isso é feito, esteja apto a receber dados do cliente, podendo também dar-lhe respostas. 
-
-O cliente, por sua vez, deve ser capaz de estabelecer a conexão com o servidor, via socket, a partir do IP do servidor e do número da porta a qual foi destinada para a conexão desejada. Ao se conectar, o cliente deve ser capaz de enviar informações e receber as respostas do servidor. 
-	 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Vale ressaltar que todo o desenvolvimento foi feito utilizando a conexão USB. No entanto, a conexão por Wifi não teria nenhuma diferença, apenas seria necessário trocar o IP referente à nova conexão. Além disso, poderia ser interessante colocar um IP fixo, de modo que em uma mesma rede, o funcionamento do equipamento sempre vai se dar de forma correta. Ainda, poder-se-ia colocar o programa pra rodar após o boot, com IP fixo, automatizando o processo de inicialização.
 
 
 ## Modelo geral
@@ -194,7 +150,33 @@ O valor de taxa de amostragem desejada deve ser um valor inteiro variando de 4 a
 
 ## Sobre o código embarcado
 
-O código para ser utilizado na *BBBlue* foi desenvolvido todo em linguagem C, considerando a *librobotcontrol* e bibliotecas do sistema *Linux*. De maneira geral, o código basicamente faz o *parsing* dos comandos de execução - definindo um modo de operação (que são definidos pelas funcionalidades existentes e implementadas na *Robot Control Library* - para o trabalho foi só considerado o valor dos ângulos, mas outras variáveis poderiam também ser exibidas), configura o sistema para operar nas condições desejadas, configura a conexão com o servidor e então, entra no *loop* de aquisição, processamento e envio de informações.
+O código para ser utilizado na *BBBlue* foi desenvolvido todo em linguagem C, considerando a *librobotcontrol* e bibliotecas do sistema *Linux*. De maneira geral, o código basicamente faz o *parsing* dos comandos de execução - definindo um modo de operação (que são definidos pelas funcionalidades existentes e implementadas na *Robot Control Library* - para o trabalho foi só considerado o valor dos ângulos, mas outras variáveis poderiam também ser exibidas), configura o sistema para operar nas condições desejadas, configura a conexão com o servidor e então, entra no *loop* de aquisição, processamento e envio de informações. Essas partes principais são discutidas a seguir.
+
+### *Parsing* dos comandos
+
+De maneira bem geral, o *parsing* dos comandos foi feito através das funções da biblioteca **getopt.h**, que permite fazer o *parsing* de comandos em uma *string* fixa. Nesse caso, utilizamos o próprio comando de execução do programa no terminal. Não há muitos comandos implementados, mas para cada um que deseja-se, basta colocar uma letra (*flag*) de referência no argumento da função *getopt* e no *switch-case* sequente, que pode-se adicionar uma funcionalidade nova. 
+```c
+(c=getopt(argc, argv, "r:tjulkm:h") // c recebe, a cada iteração uma letra posta como flag
+```
+
+### Configurando o sistema de aquisição
+
+A configuração da inercial da *BBBlue* é dada através de uma *struct rc_mpu_config_t*, que armazena valores para configurar os registradores dos periféricos necessários. 
+
+```c
+    rc_mpu_config_t conf = rc_mpu_default_config();
+    conf.i2c_bus = I2C_BUS;
+    conf.gpio_interrupt_pin_chip = GPIO_INT_PIN_CHIP;
+    conf.gpio_interrupt_pin = GPIO_INT_PIN_PIN;
+```
+
+Além dessa *struct*, há outra *rc_mpu_data_t* que irá lidar com a informação adivinda da inercial. Ainda, há a configuração do modo de leitura dos dados através de interrupção. O mecanismo que permite a interrupção no sistema utiliza uma função de *callback*. Assim, toda vez que a interrupção é disparada, essa função de *callback* é chamada, lidando com o estado corrente da aplicação. A configuração da função de *callback* é dada no seguinte trecho, onde a função **__print_data** é passada como ponteiro de função.
+
+```c
+    rc_mpu_set_dmp_callback(&__print_data);
+```
+
+
 
 ## Sobre a interface gráfica
 
@@ -317,5 +299,5 @@ while True:
 
 ## Agradecimentos
 
-Este trabalho compõe os critérios de avaliação da matéria Sistemas Embarcados, e só foi possível a partir dos conceitos ensinados nas aulas do Professor Doutor Glauco Augusto de Paula Caurin e de sua equipe.
+Gostaríamos de agradecer o Professor Doutor Glauco Augusto de Paula Caurin e sua equipe de alunos e colaboradores que se esforçaram tanto para trazer conteúdo e infraestrutura para o curso de Sistemas Embarcados mesmo quando de forma remota.
 

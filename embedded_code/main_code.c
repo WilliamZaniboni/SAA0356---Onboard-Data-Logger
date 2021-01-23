@@ -15,19 +15,19 @@
 #define GPIO_INT_PIN_CHIP 3
 #define GPIO_INT_PIN_PIN  21
 
-// Global Variables
+// Variáveis globais
 static int running = 0;
 static int show_good_news = 0;
 static rc_mpu_data_t data;
 static int sock;
 static int counter;
 
-// local functions
+// Funções locais
 static void __print_usage(void);
 static void __print_data(void);
 
-static void __print_usage(void)
-{
+
+static void __print_usage(void){
 	printf("\n Opcoes\n");
 	printf("-r {rate}	Configura a taxa de amostragem em HZ (padrao 100)\n");
 	printf("		Taxa de amostragem deve ser um divisor de 200\n");
@@ -38,11 +38,12 @@ static void __print_usage(void)
 }
 
 //Função passado por ponteiro para ser chamada toda vez que houver leitura da IMU
+//ela irá printar os dados lidos e determinados no momento que for chamada, além
+//de montar o pacote e enviá-lo.
 static void __print_data(void){
 	if(show_good_news == 1){
 		printf("Deu tudo certo! =)\n");
 		return;
-
 	}
 
 	char *message = (char *)calloc(50, sizeof(char));
@@ -73,9 +74,7 @@ static void __signal_handler(__attribute__ ((unused)) int dummy){
 }
 
 
-
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
 	int c, sample_rate;
 	struct sockaddr_in server;
 
@@ -85,7 +84,7 @@ int main(int argc, char *argv[])
 	conf.gpio_interrupt_pin_chip = GPIO_INT_PIN_CHIP;
 	conf.gpio_interrupt_pin = GPIO_INT_PIN_PIN;
 
-	// Parsing dos argumentos
+	// Parsing dos argumentos =======================================================
 	opterr = 0;
 	while ((c=getopt(argc, argv, "r:tjulkm:h"))!=-1 && argc>1){
 		switch (c){
@@ -112,6 +111,7 @@ int main(int argc, char *argv[])
 			break;
 		}
 	}
+	//===============================================================================
 
 	if(show_good_news == 1){
 		__print_data();

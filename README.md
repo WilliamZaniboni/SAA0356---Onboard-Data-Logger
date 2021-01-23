@@ -35,34 +35,19 @@ Vale ressaltar que em uma aplicação real, o pacote conteria redundâncias, che
 
 ## O computador embarcado
 
-Em vista do incentivo para utilização de *Linux Embarcado* - escopo da disciplina, além da crescente presença de dispositivos contendo esse sistema operacional na área de computação embarcada, decidiu-se por não empregar esforço no desenvolvimento de sistemas de mais baixo nível, com utilização de microcontroladores e desenvolvimento sem Sistemas Operacionais. Dito isso, devia-se escolher um módulo de computação embarcada que fosse coerente com o desenvolvimento proposto e fosse de fácil acesso aos alunos. Assim, optou-se por uma ***Beagle Bone Blue - BBBlue***, uma placa de desenvolvimento a qual opera com *Linux* e conta com recursos destinados a robótica, tais como sensores embutidos - acelerômetro, giroscópio, magnetômetro, barômetro, termômetro, além de conectores para receptores de *GNSS - Global Navigation Satellite System* e demais sensores, ainda, conectores com saída de *PWM - Pulse Width Modulation*, para ativação de atuadores e muito mais. Inclusive, essa própria placa de desenvolvimento é compatível com o projeto [Ardupilot](ardupilot.org), que consiste em um *framework* para o desenvolvimento de *VANT's*. Assim, todo o desenvolvimento feito, caso tenha interesse para alguém, pode ser integrado a outros sistemas que já tem bastante desenvolvimento acumulado. Na figura abaixo, pode-se visualizar uma *BBBlue*:
+Em vista do incentivo para utilização de *Linux Embarcado* - escopo da disciplina, além da crescente presença de dispositivos contendo esse sistema operacional na área de computação embarcada, decidiu-se por não empregar esforço no desenvolvimento de sistemas de mais baixo nível, com utilização de microcontroladores e desenvolvimento sem Sistemas Operacionais. Dito isso, devia-se escolher um módulo de computação embarcada que fosse coerente com o desenvolvimento proposto e fosse de fácil acesso aos alunos. Assim, optou-se por uma ***[Beagle Bone Blue](https://beagleboard.org/blue) - BBBlue***, uma placa de desenvolvimento a qual opera com *Linux* e conta com recursos destinados a robótica, tais como sensores embutidos - acelerômetro, giroscópio, magnetômetro, barômetro, termômetro, além de conectores para receptores de *GNSS - Global Navigation Satellite System* e demais sensores, ainda, conectores com saída de *PWM - Pulse Width Modulation*, para ativação de atuadores e muito mais. Inclusive, essa própria placa de desenvolvimento é compatível com o projeto [Ardupilot](ardupilot.org), que consiste em um *framework* para o desenvolvimento de *VANT's*. Assim, todo o desenvolvimento feito, caso tenha interesse para alguém, pode ser integrado a outros sistemas que já tem bastante desenvolvimento acumulado. Na figura abaixo, pode-se visualizar uma *BBBlue*:
 
 ![](https://beagleboard.org/static/images/600px/beagle-blue-pck.png)
 
+### Robot Control Library
+
+A criação da *BBBlue* surgiu através do trabalho de *James Strawson*, que desenvolver um *cape* para a *BeagleBone Black* destinado a aplicações de robótica. O *cape* fez tanto sucesso que a *BBBlue* foi criada. Paralelamente, o mesmo desenvolvedor também criou a biblioteca ***[librobotcontrol](http://strawsondesign.com/docs/librobotcontrol/index.html)*** a qual faz toda a interface com o *hardware* e com os dispositivos presentes no *cape* - que agora são integrados na *BBBlue*, além de fornecer inúmeras ferramentas para o desenvolvimento na área de robótica móvel, como bibliotecas para operação com *quaternions*, controle de motores e interface com inúmeros dispositvos de uso padrão. O desenvolvimento desse projeto foi totalmente baseado nas funcionalidades oferecidas pela biblioteca, uma vez que ela oferece recursos já otimizados e de fácil utilização. 
 
 
+### Conexão com a rede
 
-1. Escolha do IMU: 
-O IMU é um sensor que, geralmente, combina as funcionalidades de acelerômetros, giroscópios e magnômetro, e permite medir a atitude de um objeto. 
-Os acelerômetros são responsáveis por medir a variação de velocidade de um corpo. Os giroscópios medem as velocidades angulares. Por fim, os magnômetros medem a direção do campo magnético, funcionando como bússolas. 
-Nosso projeto consistirá, portanto, no uso de um IMU embarcado em uma aeronave, cuja atitude medida será utilizada para plotagem de gráficos e visualização das rotações em um modelo tridimensional.
+Para validar a ideia do sistema, bastava conectar-se em uma rede, enviando pacotes de informação via *socket*. Assim, em uma aplicação real, precisa-se desenvolver as camadas atrás da aplicação, que lidam com o *socket* e com a parte física. A *BBBlue* oferece conectividade por *USB* e *Wifi*, desse modo, utilizaram-se essas formas de comunicação para validar o sistema. O *socket* foi desenvolvido utilizando o protocolo de comunicação *TCP - Transmission Control Protocol*, que garante a chegada dos pacotes de informação ao destino. Assim, o sistema desenvolvido fazia a aquisição dos sensores, transformava o sinal em valores de ângulo e depois colocava esses valores em um pacote. Esse pacote era transmitido considerando o *TCP/IP* para o servidor - rodando na máquina *host*. O pacote era então interpretado e a informação nele contida era plotada na interface criada.
 
-2. Protocolo de integração
-SPI (Serial Peripheral Interface) é um protocolo de integração que possibilita que um microcontroador se comunique com outros componentes, de forma a criar uma rede. É utilizada para comunicações em pequenas distâncias, de forma síncrona, e funciona na forma "full duplex", de maneira "master-slave" com um master e múltiplos slaves.
-Quando em modo master, o microcontrolador gera sinal de clock e, os que estão na posição de slaves, recebem o este sinal.
-
-3. Protocolo de comunicação
-Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Control Protocol), que garante comunicações a partir das quais diferentes aplicações podem trocar informações,e o qual utiliza IP (Internet Protocol). Nesse contexto, a comunicação entre a placa e a máquina host é feita por rede Wi-fi, via socket, e na máquina host é feita a integração entre os dados e a interface gráfica.
-
-4. A comunicação é feita via sockets, que transmite dados na forma peer-to-peer, garantindo que o cliente envie informações para o servidor, e obtenha respostas deste.
-
-5. Utiliza-se 10 ms como tempo de amostragem para o sistema de captação de atitude.
-
-
-	Para que pudéssemos realizar o objetivo de estabelecer uma comunicação entre placa e computador, a fim de receber os dados da placa e conseguirmos, no computador, visualizar a atitude a qual está submetida a placa, por meio de uma interface gráfica, era de extrema importância conseguirmos entender a comunicação via socket.
-	
-	Neste trabalho, pudemos aprender como isso é feito, e uma das dificuldades foi entender tudo o que é preciso, nas implementações, para que cada parte da conexão exerça sua função de forma adequada. 
-	
 	Ao utilizarmos o protocolo de comunicação TCP, que funciona como se, de forma abstrata, houvesse uma conexão entre computador e placa, a comunicação é feita via socket. Nesse contexto, uma vez que temos, nesse tipo de comunicação, o servidor e o cliente, é necessário implementar o código para ambas as partes. 
 	
 	Para o servidor, é necessário que esse seja capaz de deixar aberta uma “porta”, de forma que esteja “aberto” à comunicação com o cliente. Tendo feito isso, é necessário que o servidor aguarde um cliente se conectar e, assim que isso é feito, esteja apto a receber dados do cliente, podendo também dar-lhe respostas. 
@@ -70,8 +55,12 @@ Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Contro
 	O cliente, por sua vez, deve ser capaz de estabelecer a conexão com o servidor, via socket, a partir do IP do servidor e do número da porta a qual foi destinada para a conexão desejada. Ao se conectar, o cliente deve ser capaz de enviar informações e receber as respostas do servidor. 
 	 
 
+## Modelo geral
+
+![](./img/diagram.png)
 
 
+Considerando todos os aspectos descritos acima, pode-se modelar a arquitetura mostrada na figura. Utilizando a *Robot Control Library*, uma referência de tempo dispara interrupções para a aquisição de dados do acelerômetro e do giroscópio - o código ainda permite integrar magnetômetro e GNSS à fusão - que faz com que os dados sejam processados, postos em um pacote e enviados, tudo isso em cada interrupção gerada. Ao receber um novo pacote, o servidor processa os dados e atualiza os valores na interface gráfica (*UI - User Interface*), permitindo que o usuário acompanhe o sistema em tempo real. 
 
 
 

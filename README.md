@@ -159,26 +159,7 @@ Agora deverá ter surgido um arquivo executável ***main_code***, o qual será o
 
 Deverá aparecer a seguinte mensagem:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Deu tudo certo! =)
 
 
 ## Configurando a *Ground Station*
@@ -205,13 +186,17 @@ Como mostrado no diagrama de descrição do sistema, o servidor está localizado
 
 Agora, no terminal que possui a conexão *SSH*, vá até o diretório passado para lá e execute o comando:
 
-    ./main_code -r <taxa_de_amostragem_desejada> -t
+    ./main_code -r <taxa_de_amostragem_desejada>
 
 Se tudo estiver corretamente configurado, a interface na máquina host irá mostrar o arquivo *stl* da aeronave acompanhando a atitude da *BBBlue*. Por padrão, os valores nulos de atitude são zerados na inicialização do programa, portando, repouse a placa em um lugar plano e estável antes de inicializar o sistema através do comando anterior. Feito isso, então insira o comando, dessa forma, a interface irá ter uma resposta mais coerente.
 
-O valor de taxa de amostragem desejada deve ser um valor inteiro variando de 4 a 200, que é o próprio valor em *Hertz* da amostradem do sinal. Dos experimentos realizados, foi possível constatar que o valor de 50Hz era o que melhor satisfazia os testes. Por ser um valor moderado, o processamento era passível de ser executado dentro do período disponível, mantando a conexão estável, ao mesmo tempo que os movimentos executados pelos operadores eram relativamente bem capitados por essa taxa de amostragem. Para um sistema sem muitos requisitos, essa taxa de amostragem é bastante coerente. Ainda, considerando que seria apenas para a mostra do sinal, é um valor bem razoável. No entanto, se essa aquisição fosse destinada ao controle da atitude da aeronave, essa frequência seria insuficiente.
+O valor de taxa de amostragem desejada deve ser um valor inteiro variando de 4 a 200, que é o próprio valor em *Hertz* da amostradem do sinal. Dos experimentos realizados, foi possível constatar que o valor de 50Hz era o que melhor satisfazia os testes. Por ser um valor moderado, o processamento era passível de ser executado dentro do período disponível, mantando a conexão estável, ao mesmo tempo que os movimentos executados pelos operadores eram relativamente bem capitados por essa taxa de amostragem. Para um sistema sem muitos requisitos, essa taxa de amostragem é *ok*. Ainda, considerando que seria apenas para a mostra do sinal, é um valor bem razoável. No entanto, se essa aquisição fosse destinada ao controle da atitude da aeronave, essa frequência seria insuficiente.
 
-## Interface gráfica
+## Sobre o código embarcado
+
+O código para ser utilizado na *BBBlue* foi desenvolvido todo em linguagem C, considerando a *librobotcontrol* e bibliotecas do sistema *Linux*. De maneira geral, o código basicamente faz o *parsing* dos comandos de execução - definindo um modo de operação (que são definidos pelas funcionalidades existentes e implementadas na *Robot Control Library* - para o trabalho foi só considerado o valor dos ângulos, mas outras variáveis poderiam também ser exibidas), configura o sistema para operar nas condições desejadas, configura a conexão com o servidor e então, entra no *loop* de aquisição, processamento e envio de informações.
+
+## Sobre a interface gráfica
 
 A interface gráfica foi implementada em liguagem Python e permite acompanhar em tempo real a orientação da aeronave e gráficos de row, pitch e yaw. A comunicação entre a placa e a interface ocorre por meio de uma conexão cliente/servidor utilizando sockets e comunicação TCP/IP.  No caso, a máquina que executa a interface é o servidor e a placa é o cliente. Para que a comunicação funcione é necessário que a interface e a placa estejam na mesma rede local, caso estejam em redes diferentes, torna-se necessário realizar um redirecionamento de portas no roteador (isso ocorre devido a questões de segurança, é necessário configurar o roteador  da rede onde a interface está rodando para permitir que o  IP da placa acesse a porta previamente determinada na aplicação).
 
@@ -223,21 +208,6 @@ O modelo de avião utilizado na interface foi retirado e adapatado de [Free3D](h
 
 
 ### Explicação do Código
-
-Inicialmente é feita a importação das bibliotecas necessárias para a execução da interface:
-
-
-```python
-from vpython import *
-from time import *
-import numpy as np
-import math
-import socket
-import sys
-import time
-from stl import mesh 
-import pyvista
-```
 
 É realizado a inicialização dos gráficos e a importação do modelo CAD para análise de seus parâmetros:
 
@@ -342,14 +312,6 @@ while True:
     finally:
         print("")	
 ``````
-
-
-
-## Funcionamento
-
-TO DO
-
-![](./img/gif_motor.gif)
 
 
 

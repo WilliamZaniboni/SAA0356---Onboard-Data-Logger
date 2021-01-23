@@ -11,8 +11,6 @@ import pyvista
 
 
 s = 'Gráficos de <b><i>Row</i></b>, <b><i>Pitch</i></b>, <b><i>Yaw</i></b> em função do tempo.'
-
-
 grafico = graph(title=s, xtitle='Tempo (s)', ytitle='Ângulo', fast=False, width=800)
 funct1 = gcurve(color=color.blue, width=4, marker_color=color.orange, label='Row')
 funct2 = gcurve( color=color.green, label='Pitch')
@@ -32,14 +30,9 @@ print(" {0}".format(inertia[2,:]))
 
 sgrid = pyvista.PolyData('airplane.stl')
 sgrid.translate([-cog[0], -1.15*cog[1], -cog[2]])
-
 sgrid.rotate_z(90)
 sgrid.rotate_x(-90)
-
-
-# Get pointer to points
 points = sgrid.points.copy()
-
 cent = [0,0,0]
 direction = [1,1,1]
 
@@ -48,23 +41,18 @@ direction = [1,1,1]
 plotter = pyvista.Plotter(off_screen=None, notebook=None)
 plotter.add_axes()
 plotter.add_axes_at_origin(labels_off = True)
-# plotter.add_mesh(sgrid, scalars=Z.ravel())
 plotter.add_mesh(sgrid)
-# plotter.camera_position = cpos
 plotter.show(title='Airplane', window_size=[800, 600],
                  auto_close=False, interactive_update=True)
 
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Criando o server no endereço padrão da conexão via USB, trocar caso esteja usando outra
 # forma de conexão.
-
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ("192.168.7.1", 8888)
 print('Iniciando servidor no endereço:', server_address)
 sock.bind(server_address)
-
-# Listen for incoming connections
 sock.listen(1)
 
 while True:
@@ -100,7 +88,7 @@ while True:
             
             
     finally:
-        print("")
+        print("Atualizando dados")
       
 
 

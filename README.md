@@ -31,8 +31,13 @@ O *link* discutido envolve um conjunto de operações bastante complexas. Consid
 * O processamento deles e a transformação dos valores em ângulos de *Euler*/*Tait-Bryan*
 * Envio de um pacote de informação contendo os ângulos via *socket*
 
-Vale ressaltar que em uma aplicação real, o pacote conteria redundâncias, checagem e correção de erros, além de mais informação que só os ângulos de atitude.
+Vale ressaltar que em uma aplicação real, o pacote conteria redundâncias, checagem e correção de erros, além de mais informação que só os ângulos de atitude. Como a ideia neste trabalho foi criar familiaridade com o desenvolvimento de sistemas embarcados por parte dos membros, apenas conceitos mais triviais foram levados em conta. 
 
+## O computador embarcado
+
+Em vista do incentivo para utilização de *Linux Embarcado* - escopo da disciplina, além da crescente presença de dispositivos contendo esse sistema operacional na área de computação embarcada, decidiu-se por não empregar esforço no desenvolvimento de sistemas de mais baixo nível, com utilização de microcontroladores e desenvolvimento sem Sistemas Operacionais. Dito isso, devia-se escolher um módulo de computação embarcada que fosse coerente com o desenvolvimento proposto e fosse de fácil acesso aos alunos. Assim, optou-se por uma ***Beagle Bone Blue - BBBlue***, uma placa de desenvolvimento a qual opera com *Linux* e conta com recursos destinados a robótica, tais como sensores embutidos - acelerômetro, giroscópio, magnetômetro, barômetro, termômetro, além de conectores para receptores de *GNSS - Global Navigation Satellite System* e demais sensores, ainda, conectores com saída de *PWM - Pulse Width Modulation*, para ativação de atuadores e muito mais. Inclusive, essa própria placa de desenvolvimento é compatível com o projeto [Ardupilot](ardupilot.org), que consiste em um *framework* para o desenvolvimento de *VANT's*. Assim, todo o desenvolvimento feito, caso tenha interesse para alguém, pode ser integrado a outros sistemas que já tem bastante desenvolvimento acumulado. Na figura abaixo, pode-se visualizar uma *BBBlue*:
+
+![](https://beagleboard.org/static/images/600px/beagle-blue-pck.png)
 
 
 
@@ -150,7 +155,8 @@ Para o funcionamento da *Ground Station*, espera-se que a máquina *host* esteja
 Cada uma das bibliotecas utilizadas é bastante documentada e oferece tutoriais para instalação, sendo todas elas passíveis de serem instaladas via *pip*. Tendo o ambiente configurado e as bibliotecas instaladas, estamos prontos para inicializar o sistema!
 
 
-#Utilização do Sistema
+
+# Utilização do Sistema
 
 
 

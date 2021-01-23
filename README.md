@@ -194,7 +194,7 @@ Cada uma das bibliotecas utilizadas é bastante documentada e oferece tutoriais 
 
 
 
-# Utilização do Sistema
+# Utilização e funcionamento
 
 ## Colocando o sistema para rodar!
 
@@ -219,23 +219,8 @@ A interface gráfica foi implementada em liguagem Python e permite acompanhar em
 
 O modelo de avião utilizado na interface foi retirado e adapatado de [Free3D](https://free3d.com/3d-model/airplane-v2--549103.html). Foi necessário simplificar o modelo original pois este apresentava um nível elevado de detalhes e uma alta resolução de sua superfície, o que deixava todo o processamento de visualização mais lento.
 
-<p align="center">
- <img src="./img/cad - imagem.png" 
-     alt="CAD" width="256" height="130">
-</p>
+![](./img/cad.png)
 
-
-### Bibliotecas necessárias em Python (instale antes de rodar)
-
-> [pyvista](https://docs.pyvista.org/) <br/>
-> [numpy](https://numpy.org/install/) <br/>
-> [vpython](https://www.glowscript.org/docs/VPythonDocs/index.html) <br/>
-> [numpy-stl](https://pypi.org/project/numpy-stl/)
-
-### Como rodar?
-
-
-	$ python Interface-Servidor.py
 
 ### Explicação do Código
 

@@ -156,7 +156,7 @@ O código para ser utilizado na *BBBlue* foi desenvolvido todo em linguagem C, c
 
 De maneira bem geral, o *parsing* dos comandos foi feito através das funções da biblioteca **getopt.h**, que permite fazer o *parsing* de comandos em uma *string* fixa. Nesse caso, utilizamos o próprio comando de execução do programa no terminal. Não há muitos comandos implementados, mas para cada um que deseja-se, basta colocar uma letra (*flag*) de referência no argumento da função *getopt* e no *switch-case* sequente, que pode-se adicionar uma funcionalidade nova. 
 ```c
-(c=getopt(argc, argv, "r:tjulkm:h") // c recebe, a cada iteração uma letra posta como flag
+    c = getopt(argc, argv, "r:tjulkm:h") // c recebe, a cada iteração, uma letra posta como flag na inicialização do programa
 ```
 
 ### Configurando o sistema de aquisição
@@ -176,7 +176,44 @@ Além dessa *struct*, há outra *rc_mpu_data_t* que irá lidar com a informaçã
     rc_mpu_set_dmp_callback(&__print_data);
 ```
 
+### Configurando o sistema de transmissão
 
+Por fim, ainda há a configuração do *socket*. Para isso, utiliza-se a infraestrutura disponibilizada no *Linux* e na Linguagem C. Utiliza-se o endereço de IP fixo da conexão USB para referência do servidor e define-se a porta *8888* para conexão. Caso a conexão seja por *Wifi*, deve-se modificar o valor do endereço de IP como já mencionado anteriormente.
+
+```c
+    //Criando o socket ==============================================================
+    sock = socket(AF_INET , SOCK_STREAM , 0);
+    if (sock == -1){ printf("Não foi possível criar o socket"); }
+    puts("Socket criado!\n");
+    
+    server.sin_addr.s_addr = inet_addr("192.168.7.1");
+    server.sin_family = AF_INET;
+    server.sin_port = htons( 8888 );
+
+    if (connect(sock , (struct sockaddr *)&server , sizeof(server)) < 0){ 
+        perror("Falha ao conectar!\n"); return 1;
+    }
+    puts("Conectado!\n");
+    //===============================================================================
+```
+Na função **__print_data** é onde o *socket* de fato envia a informação. A variável global *data* do tipo *rc_mpu_data_t* é utilizada para extrair os dados da inercial já na forma de *Euler/Tait-Bryan*, passando esses dados para a *string message*. Logo que os dados estão na *string*, eles são postos para transmissão.
+
+
+```c
+sprintf(message, "%.2lf/%.2f/%.2f/%.2f", 
+        ((double)counter++/10),
+            data.dmp_TaitBryan[TB_PITCH_X], 
+            data.dmp_TaitBryan[TB_ROLL_Y],
+            data.dmp_TaitBryan[TB_YAW_Z]);
+
+    printf("%s | len : %d\n", message, strlen(message));
+    if( send(sock , message , strlen(message), 0) < 0){
+        puts("Falha no envio");
+        return;
+    }
+    memset(message, 0, 50);
+    recv(sock, message, sizeof(message), 0);
+```
 
 ## Sobre a interface gráfica
 

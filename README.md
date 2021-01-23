@@ -12,6 +12,21 @@ Dentro da aeronautica, a determinação e controle de atitude (Attitude Detemina
 
 Este trabalho consiste na implementação de um sistema de fusão sensorial simplificado, o qual permite aquisitar sinais de uma unidade de medida inercial (Inertial Measurement Unit - IMU), calcular a atitude desse sensor - módulo que estaria presente na aeronave - e enviar esses sinais para um computador de monitoramento (Ground Station). Para isso, será utilizada uma BeagleBone Blue como dispositivo embarcado, uma placa de desenvolvimento com inúmeros recursos voltados para robótica, inclusive uma IMU e um computador de propósito geral, que servirá como Ground Station. Na Ground Station, os dados de atitude serão visualizados através de um modelo 3D de uma aeronave, a qual seguirá a atitude da placa de desenvolvimento, assim como seria caso a placa estivesse presente em um VANT, além de exibir os gráficos de rolagem, arfagem e guinada em função do tempo. A parte embarcada do sistema é fundamental para o voo de qualquer aeronave autônoma, já a parte desenvolvida para a Ground Station, imagina-se como exemplo de utilização no desenvolvimento de aeronaves de pequeno porte, para monitorar as variáveis principais de atitude, conseguindo avaliar o funcionamento do modelo assim como o desempenho do projeto em manobras. 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Pré-requisitos
 
 <p align="center">
@@ -47,6 +62,21 @@ Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Contro
 	O cliente, por sua vez, deve ser capaz de estabelecer a conexão com o servidor, via socket, a partir do IP do servidor e do número da porta a qual foi destinada para a conexão desejada. Ao se conectar, o cliente deve ser capaz de enviar informações e receber as respostas do servidor. 
 	 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Configuração do Sistema
 
 ## BeagleBone Blue
@@ -55,7 +85,7 @@ Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Contro
 
 As placas BeagleBone, por padrão, são passíveis de serem acessadas por **SSH - *Secure Shell*** através de uma conexão serial, pelo *IP: **192.168.7.2*** na porta 22. Utilizamos um *host* Linux para configurar a placa e desenvolver o sistema, de modo que o ambiente para desenvolvimento é bastante completo, contendo todos as ferramentas necessárias. Considerando o *host* já configurado, o comando para acessar o terminal da *BBBlue* é dado por:
 
-    $ sudo ssh debian@192.168.7.2 
+    sudo ssh debian@192.168.7.2 
 
 Será solicitado uma senha para conseguir estabelecer a conexão, a primeira senha inserida será a da sua máquina *host*, caso tenha. A segunda senha será do usuário *debian* da *BBBlue*. Caso não tenha trocado a senha padrão, ela é *temppwd*.
 
@@ -67,8 +97,8 @@ A BeagleBone Organization fornece imagens Linux que sejam propriamente adequadas
 
 Garantindo a compatibilidade de versão, basta inserir no terminal:
 
-    $ sudo dpkg-reconfigure librobotcontrol
-    $ sudo apt update && sudo apt upgrade librobotcontrol
+    sudo dpkg-reconfigure librobotcontrol
+    sudo apt update && sudo apt upgrade librobotcontrol
 
 Caso deseje utilizar o sistema com outra distribuição Linux, ainda é possível, mas terá de compilar a biblioteca por conta própria... bem, vale tentar! Para isso, acesse o [repositório](https://github.com/beagleboard/librobotcontrol) da biblioteca.
 
@@ -76,51 +106,49 @@ Caso deseje utilizar o sistema com outra distribuição Linux, ainda é possíve
 
 Terminando de realizar a configuração da **Robot Control Library**, clone este repositório em um local conveniente (na sua máquina *host*):
 
-    $ git clone https://github.com/WilliamZaniboni/SAA0356-Onboard_Data_Streamer
+    git clone https://github.com/WilliamZaniboni/SAA0356-Onboard_Data_Streamer
 
 Agora todo o projeto está clonado para ser utilizado em seu ambiente de desenvolvimento. Primeiramente, passaremos o arquivo do *host* para a *BBBlue*. Para isso, utilizaremos um protocolo de transferência de arquivo chamado *sftp - safe file transfer protocol*. Abra um novo terminal na sua máquina *host* e insira os seguintes comandos (após inserir o primeiro comando, serão solicitas as senhas do *host* - sua senha - e da *BBBlue* - *temppwd*, substitua CAMINHO pelo caminho até o repositório clonado em sua máquina *host*):
 
-    $ sudo sftp debian@192.168.7.2
-    $ sftp> put -r [CAMINHO]/embedded_code
-    $ exit 
+    sudo sftp debian@192.168.7.2
+    sftp> put -r [CAMINHO]/embedded_code
+    exit 
 
-Retorne ao terminal no qual foi estabelecida a conexão via *SSH*. Liste os arquivos presentes no diretório /home/debian da sua *BBlue*. Deverá aparecer a pasta *embedded_code*. Caso não apareça, algum erro ocorreu no processo anterior.
+Retorne ao terminal no qual foi estabelecida a conexão via *SSH*. Liste os arquivos presentes no diretório /home/debian da sua *BBlue*:
+
+    ls /home/debian -l
+
+Deverá aparecer a pasta *embedded_code* na listagem de arquivos e diretórios. Caso não apareça, algum erro ocorreu no processo anterior. Do contrário, execute os seguintes comandos:
+
+    cd /home/debian/embedded_code
+    make
+
+Listando novamente os arquivos presentes no diretório corrente:
+
+    ls -l
+
+Agora deverá ter surgido um arquivo executável ***main_code***, o qual será o responsável por fazer todo o controle da *BBBlue*, desde a aquisição de dados até a transmissão via *socket*. Para validar que a instalação funcionou, execute o seguinte teste:
+
+    ./main_code -j
+
+Deverá aparecer a seguinte mensagem:
 
 
-Comandos no terminal:
 
-#### 1. Cliente
+## Configurando a *Ground Station*
 
-##### 1.1. Comunicação entre host e placa: 
+Para o funcionamento da *Ground Station*, espera-se que a máquina *host* esteja configurada para rodar *python3*, assim como os seguintes pacotes:
 
-```sh
-sudo sftp debian@(IP da comunicação)
-```
+> [numpy](https://numpy.org/install/) <br/>
+> [numpy-stl](https://pypi.org/project/numpy-stl/)
+> [pyvista](https://docs.pyvista.org/) <br/>
+> [vpython](https://www.glowscript.org/docs/VPythonDocs/index.html) <br/>
 
-##### 1.2. Localiza o diretório do arquivo server
+Cada uma das bibliotecas utilizadas é bastante documentada e oferece tutoriais para instalação, sendo todas elas passíveis de serem instaladas via *pip*. Tendo o ambiente configurado e as bibliotecas instaladas, estamos prontos para inicializar o sistema!
 
-##### 1.3. Cópia do código do server para a placa:
-```sh
-put socket_client 
-```
-##### 1.4. Estando o arquivo na placa, faz-se sua compilação:
-```sh
-gcc socket_client.c -o socket_client
-```
-##### 1.5. Execução do código na placa:
-```sh
-./socket_client
-```
-#### 2. Servidor
 
-##### 2.1 Na máquina host, compila-se o arquivo do código:
-```sh
-gcc socket_server.c -o socket_server
-```
-##### 2.2. Executa-se o cófigo do servidor no host:
-```sh
-./socket_server
-```
+
+
 ## Interface gráfica
 
 A interface gráfica foi implementada em liguagem Python e permite acompanhar em tempo real a orientação da aeronave e gráficos de row, pitch e yaw. A comunicação entre a placa e a interface ocorre por meio de uma conexão cliente/servidor utilizando sockets e comunicação TCP/IP.  No caso, a máquina que executa a interface é o servidor e a placa é o cliente. Para que a comunicação funcione é necessário que a interface e a placa estejam na mesma rede local, caso estejam em redes diferentes, torna-se necessário realizar um redirecionamento de portas no roteador (isso ocorre devido a questões de segurança, é necessário configurar o roteador  da rede onde a interface está rodando para permitir que o  IP da placa acesse a porta previamente determinada na aplicação).

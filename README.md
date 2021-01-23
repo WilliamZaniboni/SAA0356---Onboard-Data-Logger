@@ -47,8 +47,33 @@ Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Contro
 	O cliente, por sua vez, deve ser capaz de estabelecer a conexão com o servidor, via socket, a partir do IP do servidor e do número da porta a qual foi destinada para a conexão desejada. Ao se conectar, o cliente deve ser capaz de enviar informações e receber as respostas do servidor. 
 	 
 
+# Configuração do Sistema
 
-#### Instalação
+### Instalando a librobotcontrol
+
+A BeagleBone Organization fornece imagens Linux que sejam propriamente adequadas à utilização em suas placas. Além disso, a própria organização inclui o pacote da **Robot Control Library** pré-instalado nas imagens oficiais, além de manter hospedado em seu repositório o pacote com as últimas atualizações. Dessa forma, utilize uma imagem oficial da BeableBone com publicação posterior ao ano de 2018, garantindo compatibilidade com o sistema. Caso precise trocar de imagem acesse o [tutorial](https://beagleboard.org/getting-started#update) fornecido pela própria organização, ensinando como atualizar para a última versão da imagem disponível.
+
+Garantindo a compatibilidade de versão, basta inserir no terminal:
+
+    $ sudo dpkg-reconfigure librobotcontrol
+    $ sudo apt update && sudo apt upgrade librobotcontrol
+
+Caso deseje utilizar o sistema com outra distribuição Linux, ainda é possível, mas terá de compilar a biblioteca por conta própria... bem, vale tentar! Para isso, acesse o [repositório](https://github.com/beagleboard/librobotcontrol) da biblioteca.
+
+### Instalando o Onboard Data-Streamer
+
+Terminando de realizar a configuração da **Robot Control Library**, clone este repositório em um local conveniente (na sua máquina *host*):
+
+    $ git clone https://github.com/WilliamZaniboni/SAA0356-Onboard_Data_Streamer
+
+Agora todo o projeto está clonado para ser utilizado em seu ambiente de desenvolvimento. Primeiramente, passaremos o arquivo do *host* para a *BBBlue*. Para isso, utilizaremos um protocolo de transferência de arquivo chamado *sftp - safe file transfer protocol*. Abra um novo terminal na sua máquina *host* e insira os seguintes comandos (após inserir o primeiro comando, serão solicitas as senhas do *host* - sua senha - e da *BBBlue* - *temppwd*, substitua CAMINHO pelo caminho até o repositório clonado em sua máquina *host*):
+
+    $ sudo sftp debian@192.168.7.2
+    $ sftp> put -r [CAMINHO]/embedded_code
+    $ exit 
+
+Retorne ao terminal no qual foi estabelecida a conexão via *SSH*. Liste os arquivos presentes no diretório /home/debian da sua *BBlue*. Deverá aparecer a pasta *embedded_code*. Caso não apareça, algum erro ocorreu no processo anterior.
+
 
 Comandos no terminal:
 

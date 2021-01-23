@@ -50,7 +50,7 @@ plotter.show(title='Airplane', window_size=[800, 600],
 # Criando o server no endereço padrão da conexão via USB, trocar caso esteja usando outra
 # forma de conexão.
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = ("192.168.7.1", 8888)
+server_address = ("192.168.7.2", 8888)
 print('Iniciando servidor no endereço:', server_address)
 sock.bind(server_address)
 sock.listen(1)

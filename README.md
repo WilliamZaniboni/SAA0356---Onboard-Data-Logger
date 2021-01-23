@@ -8,10 +8,10 @@ Trabalho da disciplina *SAA0356 - Sistemas Embarcados para Veículos Aéreos*, o
 
 ## Alunos/Desenvolvedores
 
-* **João Matheus Siqueira Souza** - *EESC/USP* - [GitHub](https://github.com/jmssouza)
-* **Marina Gabriela Alves** - *EESC/USP* - [GitHub](https://github.com/MarinaGabrielaAlves)
-* **Vinicius Aquilante Policarpo** - *EESC/USP* - [GitHub](https://github.com/viniciusapolicarpo)
-* **William Zaniboni Silva** - *EESC/USP* - [GitHub](https://github.com/WilliamZaniboni)
+* **[João Matheus Siqueira Souza](https://github.com/jmssouza)** - *EESC/USP*
+* **[Marina Gabriela Alves](https://github.com/MarinaGabrielaAlves)** - *EESC/USP*
+* **[Vinicius Aquilante Policarpo](https://github.com/viniciusapolicarpo)** - *EESC/USP*
+* **[William Zaniboni Silva](https://github.com/WilliamZaniboni)** - *EESC/USP*
 
 
 # Introdução
@@ -147,6 +147,16 @@ Agora, no terminal que possui a conexão *SSH*, vá até o diretório passado pa
 Se tudo estiver corretamente configurado, a interface na máquina host irá mostrar o arquivo *stl* da aeronave acompanhando a atitude da *BBBlue*. Por padrão, os valores nulos de atitude são zerados na inicialização do programa, portando, repouse a placa em um lugar plano e estável antes de inicializar o sistema através do comando anterior. Feito isso, então insira o comando, dessa forma, a interface irá ter uma resposta mais coerente.
 
 O valor de taxa de amostragem desejada deve ser um valor inteiro variando de 4 a 200, que é o próprio valor em *Hertz* da amostradem do sinal. Dos experimentos realizados, foi possível constatar que o valor de 50Hz era o que melhor satisfazia os testes. Por ser um valor moderado, o processamento era passível de ser executado dentro do período disponível, mantando a conexão estável, ao mesmo tempo que os movimentos executados pelos operadores eram relativamente bem capitados por essa taxa de amostragem. Para um sistema sem muitos requisitos, essa taxa de amostragem é *ok*. Ainda, considerando que seria apenas para a mostra do sinal, é um valor bem razoável. No entanto, se essa aquisição fosse destinada ao controle da atitude da aeronave, essa frequência seria insuficiente.
+
+### Resultados
+
+No *gif* e imagens a seguir, pode-se observar o funcionamento do sistema. Vale ressaltar que a *IMU* da *BBlue* estava bastante descalibrada no momento da gravação, mas o funcionamento ainda é visto. Quando há variação de ângulo, esta é capiturada pela *IMU* e refletida no modelo 3D e nos gráficos. Os *printscreens* finais mostram, à esquerda, o terminal da *BBBlue*, enquanto à direita, o terminal do *host*.
+
+![](./img/working_or_almost.gif)
+
+![](./img/interface.png)
+
+![](./img/terminals.png)
 
 ## Sobre o código embarcado
 

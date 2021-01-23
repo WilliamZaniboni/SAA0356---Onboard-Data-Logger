@@ -45,7 +45,7 @@ direction = [1,1,1]
 
 
 # Start a plotter object and set the scalars to the Z height
-plotter = pyvista.Plotter(off_screen=off_screen, notebook=notebook)
+plotter = pyvista.Plotter(off_screen=None, notebook=None)
 plotter.add_axes()
 plotter.add_axes_at_origin(labels_off = True)
 # plotter.add_mesh(sgrid, scalars=Z.ravel())
@@ -57,9 +57,11 @@ plotter.show(title='Airplane', window_size=[800, 600],
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Bind the socket to the port
-server_address = ("localhost", 10000)
-print('Servidor: Iniciando servidor no endereco:', server_address)
+# Criando o server no endereço padrão da conexão via USB, trocar caso esteja usando outra
+# forma de conexão.
+
+server_address = ("192.168.7.1", 8888)
+print('Iniciando servidor no endereço:', server_address)
 sock.bind(server_address)
 
 # Listen for incoming connections
@@ -74,7 +76,7 @@ while True:
 
         # Receive the data in small chunks and retransmit it
         while True:
-            data = connection.recv(16).decode("utf-8")
+            data = connection.recv(30).decode("utf-8")
 
             if data:
                 str_time, str_roll, str_pitch, str_yaw =  data.split("/") #Le a string e a converte

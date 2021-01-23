@@ -49,6 +49,18 @@ Utiliza-se, neste projeto, o protocolo de comunicação TCP (Transmission Contro
 
 # Configuração do Sistema
 
+## BeagleBone Blue
+
+### Acessando o terminal da placa
+
+As placas BeagleBone, por padrão, são passíveis de serem acessadas por **SSH - *Secure Shell*** através de uma conexão serial, pelo *IP: **192.168.7.2*** na porta 22. Utilizamos um *host* Linux para configurar a placa e desenvolver o sistema, de modo que o ambiente para desenvolvimento é bastante completo, contendo todos as ferramentas necessárias. Considerando o *host* já configurado, o comando para acessar o terminal da *BBBlue* é dado por:
+
+    $ sudo ssh debian@192.168.7.2 
+
+Será solicitado uma senha para conseguir estabelecer a conexão, a primeira senha inserida será a da sua máquina *host*, caso tenha. A segunda senha será do usuário *debian* da *BBBlue*. Caso não tenha trocado a senha padrão, ela é *temppwd*.
+
+**Obs:** Caso seu *host* não esteja propriamente configurado, ou seja, não tenha todas as ferramentas necessárias, algumas mensagens de erro irão surgir do comando. Siga as recomendações do sistema ou procure por assistência no fórum da sua distribuição Linux - ou Windows/MAC-OS =( 
+
 ### Instalando a librobotcontrol
 
 A BeagleBone Organization fornece imagens Linux que sejam propriamente adequadas à utilização em suas placas. Além disso, a própria organização inclui o pacote da **Robot Control Library** pré-instalado nas imagens oficiais, além de manter hospedado em seu repositório o pacote com as últimas atualizações. Dessa forma, utilize uma imagem oficial da BeableBone com publicação posterior ao ano de 2018, garantindo compatibilidade com o sistema. Caso precise trocar de imagem acesse o [tutorial](https://beagleboard.org/getting-started#update) fornecido pela própria organização, ensinando como atualizar para a última versão da imagem disponível.

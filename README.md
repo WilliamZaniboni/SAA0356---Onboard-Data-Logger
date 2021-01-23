@@ -1,9 +1,10 @@
 # Onboard Data Streamer
 
-<img src="./img/logo_eesc.png" align="right"
-     alt="Logo EESC" width="200" height="175">
+Trabalho da disciplina SAA0356, realizada durante o segundo semestre de 2020. <br/>
 
-**Trabalho da disciplina SAA0356, realizada durante o segundo semestre de 2020.** <br/>
+<img src="./img/logo_eesc.png" align="right"
+     alt="Logo EESC" height="200">
+
 
 ## Alunos/Desenvolvedores
 

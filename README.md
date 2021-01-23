@@ -48,12 +48,52 @@ A criação da *BBBlue* surgiu através do trabalho de *James Strawson*, que des
 
 Para validar a ideia do sistema, bastava conectar-se em uma rede, enviando pacotes de informação via *socket*. Assim, em uma aplicação real, precisa-se desenvolver as camadas atrás da aplicação, que lidam com o *socket* e com a parte física. A *BBBlue* oferece conectividade por *USB* e *Wifi*, desse modo, utilizaram-se essas formas de comunicação para validar o sistema. O *socket* foi desenvolvido utilizando o protocolo de comunicação *TCP - Transmission Control Protocol*, que garante a chegada dos pacotes de informação ao destino. Assim, o sistema desenvolvido fazia a aquisição dos sensores, transformava o sinal em valores de ângulo e depois colocava esses valores em um pacote. Esse pacote era transmitido considerando o *TCP/IP* para o servidor - rodando na máquina *host*. O pacote era então interpretado e a informação nele contida era plotada na interface criada.
 
-	Ao utilizarmos o protocolo de comunicação TCP, que funciona como se, de forma abstrata, houvesse uma conexão entre computador e placa, a comunicação é feita via socket. Nesse contexto, uma vez que temos, nesse tipo de comunicação, o servidor e o cliente, é necessário implementar o código para ambas as partes. 
-	
-	Para o servidor, é necessário que esse seja capaz de deixar aberta uma “porta”, de forma que esteja “aberto” à comunicação com o cliente. Tendo feito isso, é necessário que o servidor aguarde um cliente se conectar e, assim que isso é feito, esteja apto a receber dados do cliente, podendo também dar-lhe respostas. 
-	
-	O cliente, por sua vez, deve ser capaz de estabelecer a conexão com o servidor, via socket, a partir do IP do servidor e do número da porta a qual foi destinada para a conexão desejada. Ao se conectar, o cliente deve ser capaz de enviar informações e receber as respostas do servidor. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ao utilizarmos o protocolo de comunicação TCP, que funciona como se, de forma abstrata, houvesse uma conexão entre computador e placa, a comunicação é feita via socket. Nesse contexto, uma vez que temos, nesse tipo de comunicação, o servidor e o cliente, é necessário implementar o código para ambas as partes. 
+
+Para o servidor, é necessário que esse seja capaz de deixar aberta uma “porta”, de forma que esteja “aberto” à comunicação com o cliente. Tendo feito isso, é necessário que o servidor aguarde um cliente se conectar e, assim que isso é feito, esteja apto a receber dados do cliente, podendo também dar-lhe respostas. 
+
+O cliente, por sua vez, deve ser capaz de estabelecer a conexão com o servidor, via socket, a partir do IP do servidor e do número da porta a qual foi destinada para a conexão desejada. Ao se conectar, o cliente deve ser capaz de enviar informações e receber as respostas do servidor. 
 	 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Modelo geral
 
@@ -61,17 +101,6 @@ Para validar a ideia do sistema, bastava conectar-se em uma rede, enviando pacot
 
 
 Considerando todos os aspectos descritos acima, pode-se modelar a arquitetura mostrada na figura. Utilizando a *Robot Control Library*, uma referência de tempo dispara interrupções para a aquisição de dados do acelerômetro e do giroscópio - o código ainda permite integrar magnetômetro e GNSS à fusão - que faz com que os dados sejam processados, postos em um pacote e enviados, tudo isso em cada interrupção gerada. Ao receber um novo pacote, o servidor processa os dados e atualiza os valores na interface gráfica (*UI - User Interface*), permitindo que o usuário acompanhe o sistema em tempo real. 
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Instalação e configuração
@@ -132,6 +161,26 @@ Deverá aparecer a seguinte mensagem:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Configurando a *Ground Station*
 
 Para o funcionamento da *Ground Station*, espera-se que a máquina *host* esteja configurada para rodar *python3*, assim como os seguintes pacotes:
@@ -147,7 +196,20 @@ Cada uma das bibliotecas utilizadas é bastante documentada e oferece tutoriais 
 
 # Utilização do Sistema
 
+## Colocando o sistema para rodar!
 
+Como mostrado no diagrama de descrição do sistema, o servidor está localizado na máquina *host*, dessa maneira, o software presente nesse dispositivo desse ser inicializado primeiro. Portanto, no diretório clonado dentro da sua máquina *host*, insira os comandos:
+
+    cd user_interface
+    python server.py
+
+Agora, no terminal que possui a conexão *SSH*, vá até o diretório passado para lá e execute o comando:
+
+    ./main_code -r <taxa_de_amostragem_desejada> -t
+
+Se tudo estiver corretamente configurado, a interface na máquina host irá mostrar o arquivo *stl* da aeronave acompanhando a atitude da *BBBlue*. Por padrão, os valores nulos de atitude são zerados na inicialização do programa, portando, repouse a placa em um lugar plano e estável antes de inicializar o sistema através do comando anterior. Feito isso, então insira o comando, dessa forma, a interface irá ter uma resposta mais coerente.
+
+O valor de taxa de amostragem desejada deve ser um valor inteiro variando de 4 a 200, que é o próprio valor em *Hertz* da amostradem do sinal. Dos experimentos realizados, foi possível constatar que o valor de 50Hz era o que melhor satisfazia os testes. Por ser um valor moderado, o processamento era passível de ser executado dentro do período disponível, mantando a conexão estável, ao mesmo tempo que os movimentos executados pelos operadores eram relativamente bem capitados por essa taxa de amostragem. Para um sistema sem muitos requisitos, essa taxa de amostragem é bastante coerente. Ainda, considerando que seria apenas para a mostra do sinal, é um valor bem razoável. No entanto, se essa aquisição fosse destinada ao controle da atitude da aeronave, essa frequência seria insuficiente.
 
 ## Interface gráfica
 

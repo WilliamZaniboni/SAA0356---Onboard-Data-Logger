@@ -3,9 +3,17 @@
 <img src="./img/logo_eesc.png" align="right"
      alt="Logo EESC" width="200" height="175">
 
-Trabalho da disciplina SAA0356, realizada durante o segundo semestre de 2020.
+**Trabalho da disciplina SAA0356, realizada durante o segundo semestre de 2020.** <br/>
 
-# Introdução e descrição inicial do sistema
+## Alunos/Desenvolvedores
+
+* **João Matheus Siqueira Souza** - *EESC/USP* - [GitHub](https://github.com/jmssouza)
+* **Marina Gabriela Alves** - *EESC/USP* - [GitHub](https://github.com/MarinaGabrielaAlves)
+* **Vinicius Aquilante Policarpo** - *EESC/USP* - [GitHub](https://github.com/viniciusapolicarpo)
+* **William Zaniboni Silva** - *EESC/USP* - [GitHub](https://github.com/WilliamZaniboni)
+
+
+# Introdução
 
 Dentro da aeronautica, a determinação e controle de atitude (Attitude Detemination and Control - ADC) de uma aeronave é de fundamental importância para a existência do voo. Com a crescente utilização de Veículos Aéreos Não Tripulados (VANT's) para as mais variadas aplicações, iniciou-se um processo de barateamento da tecnologia de ADC, visando disseminar ainda mais a utilização desses veículos e tornar possível aplicações que não tenham capacidade de prover grandes investimentos. 
 
@@ -140,7 +148,7 @@ Deverá aparecer a seguinte mensagem:
 Para o funcionamento da *Ground Station*, espera-se que a máquina *host* esteja configurada para rodar *python3*, assim como os seguintes pacotes:
 
 > [numpy](https://numpy.org/install/) <br/>
-> [numpy-stl](https://pypi.org/project/numpy-stl/)
+> [numpy-stl](https://pypi.org/project/numpy-stl/) <br/>
 > [pyvista](https://docs.pyvista.org/) <br/>
 > [vpython](https://www.glowscript.org/docs/VPythonDocs/index.html) <br/>
 
@@ -305,12 +313,6 @@ TO DO
 
 ![](./img/gif_motor.gif)
 
-## Alunos
-
-* **João Matheus Siqueira Souza** - *EESC/USP* - [GitHub](https://github.com/jmssouza)
-* **Marina Gabriela Alves** - *EESC/USP* - [GitHub](https://github.com/MarinaGabrielaAlves)
-* **Vinicius Aquilante Policarpo** - *EESC/USP* - [GitHub](https://github.com/viniciusapolicarpo)
-* **William Zaniboni Silva** - *EESC/USP* - [GitHub](https://github.com/WilliamZaniboni)
 
 
 ## Agradecimentos

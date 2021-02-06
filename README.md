@@ -26,16 +26,16 @@ Este trabalho consiste na implementação de um sistema de fusão sensorial simp
 
 De maneira geral, deseja-se sempre monitorar o estado de todas as variáveis possíveis de uma aeronave, principalmente em seu estado de desenvolvimento. Em uma aplicação real, o *link* entre a aeronave e a *Ground Station* não compõe a lista de funcionalidades mais relevantes para operação do sistema. No entanto, para fins didáticos e para que os conceitos desenvolvidos na disciplina pudessem ser aplicados sem complicações adicionais, propôs-se desenvolver algumas partes desse *link* apenas para as variáveis de atitude, de modo a iniciar uma arquitetura de funcionamento para esse sistema embarcado proposto e o desenvolvimento nessa área. Para estudantes futuros que tenham interesse em dar continuidade ao projeto, inúmeras possibilidades de integrações e desenvolvimentos futuros poderiam trazer aplicabilidade real ao sistema.
 
-O *link* discutido envolve um conjunto de operações bastante complexas. Considerando o modelo *OSI*, tomando, por exemplo, a camada física da comunicação, inúmeros desafios já estariam presentes no desenvolvimento, como a determinação do nível de potência do sinal transmitido, tipo de modulação, antena e seus ganhos, apontamento e afins. O sistema proposta foca em desenvolver: 
+O *link* discutido envolve um conjunto de operações bastante complexas. Considerando o modelo *OSI*, tomando, por exemplo, a camada física da comunicação, inúmeros desafios já estariam presentes no desenvolvimento, como a determinação do nível de potência do sinal transmitido, tipo de modulação, antena e seus ganhos, apontamento e afins. O sistema proposto foca em desenvolver: 
 * A aquisição de dados, considerando acesso direto ao barramento no qual o sensor inercial está presente
 * O processamento deles e a transformação dos valores em ângulos de *Euler*/*Tait-Bryan*
-* Envio de um pacote de informação contendo os ângulos via *socket*
+* Envio, via *socket*, de um pacote de informação contendo os ângulos 
 
 Vale ressaltar que em uma aplicação real, o pacote conteria redundâncias, checagem e correção de erros, além de mais informação que só os ângulos de atitude. Como a ideia neste trabalho foi criar familiaridade com o desenvolvimento de sistemas embarcados por parte dos membros, apenas conceitos mais triviais foram levados em conta. 
 
 ## O computador embarcado
 
-Em vista do incentivo para utilização de *Linux Embarcado* - escopo da disciplina, além da crescente presença de dispositivos contendo esse sistema operacional na área de computação embarcada, decidiu-se por não empregar esforço no desenvolvimento de sistemas de mais baixo nível, com utilização de microcontroladores e desenvolvimento sem Sistemas Operacionais. Dito isso, devia-se escolher um módulo de computação embarcada que fosse coerente com o desenvolvimento proposto e fosse de fácil acesso aos alunos. Assim, optou-se por uma ***[Beagle Bone Blue](https://beagleboard.org/blue) - BBBlue***, uma placa de desenvolvimento a qual opera com *Linux* e conta com recursos destinados a robótica, tais como sensores embutidos - acelerômetro, giroscópio, magnetômetro, barômetro, termômetro, além de conectores para receptores de *GNSS - Global Navigation Satellite System* e demais sensores, ainda, conectores com saída de *PWM - Pulse Width Modulation*, para ativação de atuadores e muito mais. Inclusive, essa própria placa de desenvolvimento é compatível com o projeto [Ardupilot](ardupilot.org), que consiste em um *framework* para o desenvolvimento de *VANT's*. Assim, todo o desenvolvimento feito, caso tenha interesse para alguém, pode ser integrado a outros sistemas que já tem bastante desenvolvimento acumulado. Na figura abaixo, pode-se visualizar uma *BBBlue*:
+Em vista do incentivo para utilização de *Linux Embarcado* - escopo da disciplina, além da crescente presença de dispositivos contendo esse sistema operacional na área de computação embarcada, decidiu-se por não empregar esforço no desenvolvimento de sistemas de mais baixo nível, com utilização de microcontroladores e desenvolvimento sem Sistemas Operacionais. Dito isso, devia-se escolher um módulo de computação embarcada que fosse coerente com o desenvolvimento proposto e fosse de fácil acesso aos alunos. Assim, optou-se por uma ***[Beagle Bone Blue](https://beagleboard.org/blue) - BBBlue***, uma placa de desenvolvimento a qual opera com *Linux* e conta com recursos destinados a robótica, tais como sensores embutidos - acelerômetro, giroscópio, magnetômetro, barômetro, termômetro, além de conectores para receptores de *GNSS - Global Navigation Satellite System* e demais sensores, ainda, conectores com saída de *PWM - Pulse Width Modulation*, para ativação de atuadores e muito mais. Inclusive, essa própria placa de desenvolvimento é compatível com o projeto [Ardupilot](ardupilot.org), que consiste em um *framework* para o desenvolvimento de *VANT's*. Assim, todo o desenvolvimento feito, caso tenha interesse para alguém, pode ser integrado a outros sistemas que já têm bastante desenvolvimento acumulado. Na figura abaixo, pode-se visualizar uma *BBBlue*:
 
 ![](https://beagleboard.org/static/images/600px/beagle-blue-pck.png)
 
@@ -48,7 +48,7 @@ A criação da *BBBlue* surgiu através do trabalho de *James Strawson*, que des
 
 Para validar a ideia do sistema, bastava conectar-se em uma rede, enviando pacotes de informação via *socket*. Assim, em uma aplicação real, precisa-se desenvolver as camadas atrás da aplicação, que lidam com o *socket* e com a parte física. A *BBBlue* oferece conectividade por *USB* e *Wifi*, desse modo, utilizaram-se essas formas de comunicação para validar o sistema. O *socket* foi desenvolvido utilizando o protocolo de comunicação *TCP - Transmission Control Protocol*, que garante a chegada dos pacotes de informação ao destino. Assim, o sistema desenvolvido fazia a aquisição dos sensores, transformava o sinal em valores de ângulo e depois colocava esses valores em um pacote. Esse pacote era transmitido considerando o *TCP/IP* para o servidor - rodando na máquina *host*. O pacote era então interpretado e a informação nele contida era plotada na interface criada.
 
-Vale ressaltar que todo o desenvolvimento foi feito utilizando a conexão USB. No entanto, a conexão por Wifi não teria nenhuma diferença, apenas seria necessário trocar o IP referente à nova conexão. Além disso, poderia ser interessante colocar um IP fixo, de modo que em uma mesma rede, o funcionamento do equipamento sempre vai se dar de forma correta. Ainda, poder-se-ia colocar o programa pra rodar após o boot, com IP fixo, automatizando o processo de inicialização.
+Vale ressaltar que todo o desenvolvimento foi feito utilizando a conexão USB. No entanto, a conexão por Wifi não teria nenhuma diferença, apenas seria necessário trocar o IP referente à nova conexão. Além disso, poderia ser interessante colocar um IP fixo, de modo que, em uma mesma rede, o funcionamento do equipamento sempre se daria de forma correta. Ainda, poder-se-ia colocar o programa pra rodar após o boot, com IP fixo, automatizando o processo de inicialização.
 
 
 ## Modelo geral
@@ -69,7 +69,7 @@ As placas BeagleBone, por padrão, são passíveis de serem acessadas por **SSH 
 
     sudo ssh debian@192.168.7.2 
 
-Será solicitado uma senha para conseguir estabelecer a conexão, a primeira senha inserida será a da sua máquina *host*, caso tenha. A segunda senha será do usuário *debian* da *BBBlue*. Caso não tenha trocado a senha padrão, ela é *temppwd*.
+Será solicitado uma senha para conseguir estabelecer a conexão, a primeira senha a ser inserida será a da sua máquina *host*, caso tenha. A segunda senha será a do usuário *debian* da *BBBlue*. Caso não tenha trocado a senha padrão, ela é *temppwd*.
 
 **Obs:** Caso seu *host* não esteja propriamente configurado, ou seja, não tenha todas as ferramentas necessárias, algumas mensagens de erro irão surgir do comando. Siga as recomendações do sistema ou procure por assistência no fórum da sua distribuição Linux - ou Windows/MAC-OS =( 
 
@@ -127,7 +127,7 @@ Para o funcionamento da *Ground Station*, espera-se que a máquina *host* esteja
 > [pyvista](https://docs.pyvista.org/) <br/>
 > [vpython](https://www.glowscript.org/docs/VPythonDocs/index.html) <br/>
 
-Cada uma das bibliotecas utilizadas é bastante documentada e oferece tutoriais para instalação, sendo todas elas passíveis de serem instaladas via *pip*. Tendo o ambiente configurado e as bibliotecas instaladas, estamos prontos para inicializar o sistema!
+Cada uma das bibliotecas utilizadas é bastante documentada e oferece tutoriais para instalação, sendo todas elas passíveis de serem instaladas via *pip*. Tendo sido o ambiente configurado e as bibliotecas instaladas, estamos prontos para inicializar o sistema!
 
 
 
@@ -144,13 +144,13 @@ Agora, no terminal que possui a conexão *SSH*, vá até o diretório passado pa
 
     ./main_code -r <taxa_de_amostragem_desejada>
 
-Se tudo estiver corretamente configurado, a interface na máquina host irá mostrar o arquivo *stl* da aeronave acompanhando a atitude da *BBBlue*. Por padrão, os valores nulos de atitude são zerados na inicialização do programa, portando, repouse a placa em um lugar plano e estável antes de inicializar o sistema através do comando anterior. Feito isso, então insira o comando, dessa forma, a interface irá ter uma resposta mais coerente.
+Se tudo estiver corretamente configurado, a interface na máquina host irá mostrar o arquivo *stl* da aeronave acompanhando a atitude da *BBBlue*. Por padrão, os valores nulos de atitude são zerados na inicialização do programa, portando, repouse a placa em um lugar plano e estável antes de inicializar o sistema através do comando anterior. Feito isso, insira o comando. Dessa forma, a interface irá ter uma resposta mais coerente.
 
-O valor de taxa de amostragem desejada deve ser um valor inteiro variando de 4 a 200, que é o próprio valor em *Hertz* da amostradem do sinal. Dos experimentos realizados, foi possível constatar que o valor de 50Hz era o que melhor satisfazia os testes. Por ser um valor moderado, o processamento era passível de ser executado dentro do período disponível, mantando a conexão estável, ao mesmo tempo que os movimentos executados pelos operadores eram relativamente bem capitados por essa taxa de amostragem. Para um sistema sem muitos requisitos, essa taxa de amostragem é *ok*. Ainda, considerando que seria apenas para a mostra do sinal, é um valor bem razoável. No entanto, se essa aquisição fosse destinada ao controle da atitude da aeronave, essa frequência seria insuficiente.
+O valor de taxa de amostragem desejada deve ser um valor inteiro variando de 4 a 200, que é o próprio valor em *Hertz* da amostradem do sinal. Dos experimentos realizados, foi possível constatar que o valor de 50Hz era o que melhor satisfazia os testes. Por ser um valor moderado, o processamento era passível de ser executado dentro do período disponível, mantando a conexão estável, ao mesmo tempo que os movimentos executados pelos operadores eram relativamente bem captados por essa taxa de amostragem. Para um sistema sem muitos requisitos, essa taxa de amostragem é *ok*. Ainda, considerando que seria apenas para a mostra do sinal, é um valor bem razoável. No entanto, se essa aquisição fosse destinada ao controle da atitude da aeronave, essa frequência seria insuficiente.
 
 ### Resultados
 
-No *gif* e imagens a seguir, pode-se observar o funcionamento do sistema. Vale ressaltar que a *IMU* da *BBlue* estava bastante descalibrada no momento da gravação, mas o funcionamento ainda é visto. Quando há variação de ângulo, esta é capiturada pela *IMU* e refletida no modelo 3D e nos gráficos. Os *printscreens* finais mostram, à esquerda, o terminal da *BBBlue*, enquanto à direita, o terminal do *host*.
+No *gif* e imagens a seguir, pode-se observar o funcionamento do sistema. Vale ressaltar que a *IMU* da *BBlue* estava bastante descalibrada no momento da gravação, mas o funcionamento ainda é visto. Quando há variação de ângulo, esta é capturada pela *IMU* e refletida no modelo 3D e nos gráficos. Os *printscreens* finais mostram, à esquerda, o terminal da *BBBlue*, enquanto à direita, o terminal do *host*.
 
 ![](./img/working_or_almost.gif)
 
@@ -164,7 +164,7 @@ O código para ser utilizado na *BBBlue* foi desenvolvido todo em linguagem C, c
 
 ### *Parsing* dos comandos
 
-De maneira bem geral, o *parsing* dos comandos foi feito através das funções da biblioteca **getopt.h**, que permite fazer o *parsing* de comandos em uma *string* fixa. Nesse caso, utilizamos o próprio comando de execução do programa no terminal. Não há muitos comandos implementados, mas para cada um que deseja-se, basta colocar uma letra (*flag*) de referência no argumento da função *getopt* e no *switch-case* sequente, que pode-se adicionar uma funcionalidade nova. 
+De maneira bem geral, o *parsing* dos comandos foi feito através das funções da biblioteca **getopt.h**, que permite fazer o *parsing* de comandos em uma *string* fixa. Nesse caso, utilizamos o próprio comando de execução do programa no terminal. Não há muitos comandos implementados, mas para cada um que se deseja, basta colocar uma letra (*flag*) de referência no argumento da função *getopt* e no *switch-case* sequente, que pode-se adicionar uma funcionalidade nova. 
 ```c
     c = getopt(argc, argv, "r:tjulkm:h") // c recebe, a cada iteração, uma letra posta como flag na inicialização do programa
 ```
@@ -231,7 +231,7 @@ A interface gráfica foi implementada em liguagem Python e permite acompanhar em
 
 ### CAD utilizado para a visualização
 
-O modelo de avião utilizado na interface foi retirado e adapatado de [Free3D](https://free3d.com/3d-model/airplane-v2--549103.html). Foi necessário simplificar o modelo original pois este apresentava um nível elevado de detalhes e uma alta resolução de sua superfície, o que deixava todo o processamento de visualização mais lento.
+O modelo de avião utilizado na interface foi retirado e adaptado de [Free3D](https://free3d.com/3d-model/airplane-v2--549103.html). Foi necessário simplificar o modelo original pois este apresentava um nível elevado de detalhes e uma alta resolução de sua superfície, o que deixava todo o processamento de visualização mais lento.
 
 ![](./img/cad.png)
 
